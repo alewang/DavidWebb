@@ -22,13 +22,18 @@ public abstract class AbstractTestWebb extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
 
-        String host = isAndroid()
-                ? (isEmulator() ? "10.0.2.2" : HOST_IP)
-                : "localhost";
+        String host = getHost();
 
         Webb.setGlobalHeader(Webb.HDR_USER_AGENT, Webb.DEFAULT_USER_AGENT);
         webb = Webb.create();
         webb.setBaseUri("http://" + host + ":3003");
+    }
+
+    protected String getHost() {
+        String host = isAndroid()
+                ? (isEmulator() ? "10.0.2.2" : HOST_IP)
+                : "localhost";
+        return host;
     }
 
     protected void assertArrayEquals(byte[] expected, byte[] bytes) {
